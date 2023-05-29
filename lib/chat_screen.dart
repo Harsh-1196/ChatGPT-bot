@@ -19,6 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
   OpenAI? chatGPT;
 
   StreamSubscription? _subscription;
+  bool isTyping = false;
 
   @override
   void initState() {
@@ -37,11 +38,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
     setState(() {
       _messages.insert(0, _message);
+      isTyping = true;
     });
 
     _controller.clear();
 
-    final request = ChatCompletion.create();
+    final request = CompleteReq(prompt: message.text, model: kTranslateModelV3, max_tokens: 200);
 
     _subscription = chatGPT!
         .build(token: "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")
@@ -53,6 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
       setState(() {
         _messages.insert(0, botMessage);
+        isTyping = true;
       });
     });
   }
@@ -96,6 +99,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   return _messages[index];
                 }),
           ), // it moves our text field to the bottom of screen
+          if(isTyping) const ThreeDots(), 
+          const Divider(
+            height: 1.0;
+          ),
           Container(
             decoration: BoxDecoration(
               color: context.cardColor,
