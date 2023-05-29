@@ -28,17 +28,6 @@ class ChatMessage extends StatelessWidget {
             .alignCenter
             .makeCentered(),
         Expanded(
-          child: isImage
-              ? AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    text,
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : const CircularProgressIndicator.adaptive(),
-                  ),
-                )
               : text.trim().text.bodyText1(context).make().px8(),
         ),
       ],
