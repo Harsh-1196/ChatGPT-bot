@@ -43,7 +43,9 @@ class _ChatScreenState extends State<ChatScreen> {
     });
 
     _controller.clear();
-
+    
+    
+    // its outdated now
     final request = CompleteReq(prompt: message.text, model: kTranslateModelV3, max_tokens: 200);
 
     _subscription = chatGPT!
